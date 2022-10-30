@@ -30,7 +30,7 @@ const productSchema = mongoose.Schema(
     user: {
       type: mongoose.Schema.Types.ObjectId,
       required: true,
-      ref: "User",
+      ref: "User",            // one to many relationship b/w user and products set up
     },
     name: {
       type: String,
@@ -52,7 +52,7 @@ const productSchema = mongoose.Schema(
       type: String,
       required: true,
     },
-    reviews: [reviewSchema],
+    reviews: [reviewSchema],    // array of review models
     rating: {
       type: Number,
       required: true,

@@ -14,7 +14,7 @@ import connectDB from "./config/db.js";
 import { notFound, errorHandler } from "./middleware/errorMiddleware.js";
 
 dotenv.config();
-connectDB();
+connectDB();     // connecting to the MongoDB URI
 
 const app = express();
 
@@ -51,7 +51,7 @@ if (process.env.NODE_ENV === "production") {
 }
 
 app.use(notFound);
-app.use(errorHandler);
+app.use(errorHandler); // when an error is thrown by any express route, it is caught by this middleware function..
 
 const PORT = process.env.PORT || 5000;
 app.listen(

@@ -4,7 +4,7 @@ import Product from "../models/productModel.js";
 // @desc : Find all Products
 // @route : GET /api/products
 // @access : Public
-const getProducts = asyncHandler(async (req, res) => {
+const getProducts = asyncHandler(async (req, res) => {           // asyncHandler avoids using try/catch everytime with express async routes and handles the exception
   const pageSize = 10;
   const page = Number(req.query.pageNumber) || 1;
 
