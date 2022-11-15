@@ -12,8 +12,8 @@ const PaymentScreen = ({ history }) => {
   const cart = useSelector((state) => state.cart);
   const { shippingAddress } = cart;
 
-  if (!shippingAddress) {
-    history.push("/placeorder");
+  if (!shippingAddress) { // if shippingAddress not found, redirect to shipping screen
+    history.push("/shipping"); // idk why it was "/placeorder"
   }
 
   const [paymentMethod, setPaymentMethod] = useState("PayPal");

@@ -24,7 +24,7 @@ import {
 } from "../constants/productConstants";
 
 export const listProducts =
-  (keyword = "", pageNumber = "") =>
+  (keyword = "", pageNumber = "") =>  // 'thunk' allows a function to get wrapped within another function
   async (dispatch) => {
     try {
       dispatch({ type: PRODUCT_LIST_REQUEST });

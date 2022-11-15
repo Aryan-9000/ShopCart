@@ -20,7 +20,7 @@ const UserListScreen = ({ history }) => {
   const { success: successDelete } = userDelete;
 
   useEffect(() => {
-    if (userInfo && userInfo.isAdmin) {
+    if (userInfo && userInfo.isAdmin) { // if a non admin user tries to access this page, he is redirected to login page/home page
       dispatch(listUsers());
     } else {
       history.push("/login");
@@ -28,7 +28,7 @@ const UserListScreen = ({ history }) => {
   }, [dispatch, history, userInfo, successDelete]);
 
   const deleteHandler = (id) => {
-    if (window.confirm("Are You Sure?")) {
+    if (window.confirm("Are You Sure?")) { // alert popup of whether you are confirmed to delete the user
       dispatch(deleteUser(id));
     }
   };

@@ -33,7 +33,7 @@ const App = () => {
           <Route path="/login" component={LoginScreen} />
           <Route path="/profile" component={ProfileScreen} />
           <Route path="/product/:id" component={ProductScreen} />
-          <Route path="/cart/:id?" component={CartScreen} />
+          <Route path="/cart/:id?" component={CartScreen} /> {/* "?" makes the id parameter optional */}
           <Route path="/admin/userlist" component={UserListScreen} />
           <Route path="/admin/user/:id/edit" component={UserEditScreen} />
           <Route
@@ -54,7 +54,8 @@ const App = () => {
             path="/search/:keyword/page/:pageNumber"
             component={HomeScreen}
             exact
-          />
+          /> 
+          {/* this route is for including pagination within searched results */}
           <Route path="/" component={HomeScreen} exact />
         </Container>
       </main>

@@ -12,7 +12,7 @@ const storage = multer.diskStorage({
   filename(req, file, cb) {
     cb(
       null,
-      `${file.fieldname}-${Date.now()}${path.extname(file.originalname)}`
+      `${file.fieldname}-${Date.now()}${path.extname(file.originalname)}` // including 'date' for distinguishing common filenames.. and extracting the extension at the last.
     );
   },
 });
@@ -33,12 +33,12 @@ function checkFileTypes(file, cb) {
 
 const upload = multer({
   storage,
-  fileFilter: function (req, file, cb) {
+  fileFilter: function (req, file, cb) { // so that only images can be uploaded
     checkFileTypes(file, cb);
   },
 });
 
-router.post("/", upload.single("image"), (req, res) => {
+router.post("/", upload.single("image"), (req, res) => { // 'single' to upload a single image... route '/' corresponds to '/upload/'
   console.log(__dirname);
   res.send(`/uploads${req.file.path.split("uploads")[1]}`);
 });

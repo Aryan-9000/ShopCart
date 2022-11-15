@@ -6,6 +6,9 @@ import {
   CART_SAVE_PAYMENT_METHOD,
 } from "../constants/cartConstants";
 
+// Why is local storage used?
+// The localStorage object stores data with no expiration date.
+// The data is not deleted when the browser is closed, and are available for future sessions.
 export const addToCart = (id, qty) => async (dispatch, getState) => {
   const { data } = await axios.get(`/api/products/${id}`);
 
@@ -21,9 +24,11 @@ export const addToCart = (id, qty) => async (dispatch, getState) => {
     },
   });
 
-  localStorage.setItem("cartItems", JSON.stringify(getState().cart.cartItems));
+  localStorage.setItem("cartItems", JSON.stringify(getState().cart.cartItems)); // We can only save strings in our local storage..
 };
 
+// difference between  getState and useSelector : 
+// https://www.reddit.com/r/react/comments/jdbzme/what_is_the_difference_between_getstate_and/
 export const removeFromCart = (id) => (dispatch, getState) => {
   dispatch({
     type: CART_REMOVE_ITEM,

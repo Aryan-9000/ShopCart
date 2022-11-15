@@ -20,7 +20,7 @@ import {
 const OrderScreen = ({ match, history }) => {
   const dispatch = useDispatch();
 
-  const [sdkReady, setSdkReady] = useState(false);
+  const [sdkReady, setSdkReady] = useState(false); // tells whether the paypal script is added or not
 
   const orderId = match.params.id;
 
@@ -31,7 +31,7 @@ const OrderScreen = ({ match, history }) => {
   const { order, loading, error } = orderDetails;
 
   const orderPay = useSelector((state) => state.orderPay);
-  const { loading: loadingPay, success: successPay } = orderPay;
+  const { loading: loadingPay, success: successPay } = orderPay; // renaming while destructuring
 
   const orderDeliver = useSelector((state) => state.orderDeliver);
   const { loading: loadingDeliver, success: successDeliver } = orderDeliver;
@@ -49,6 +49,7 @@ const OrderScreen = ({ match, history }) => {
     if (!userInfo) {
       history.push("/login");
     }
+    // fetch PAYPAL client ID and add a script tag to the HTML body 
     const addPayPalScript = async () => {
       const { data: clientId } = await axios.get("/api/config/paypal");
       const script = document.createElement("script");
@@ -57,17 +58,18 @@ const OrderScreen = ({ match, history }) => {
       script.async = true;
       script.onload = () => {
         setSdkReady(true);
-      };
+      }; // occurs when an object has been loaded
       document.body.appendChild(script);
     };
 
     // addPayPalScript();
 
+    // make sure that the order ID matches the ID in the URL. If it does not, then dispatch getOrderDetails() to fetch the most recent order
     if (successPay || successDeliver || !order || order._id !== orderId) {
       dispatch({ type: ORDER_DELIVER_RESET });
       dispatch({ type: ORDER_PAY_RESET });
-      dispatch(getOrderDetails(orderId));
-    } else if (!order.isPaid) {
+      dispatch(getOrderDetails(orderId)); // basically reset the screen
+    } else if (!order.isPaid) { // if order isnt paid, load the paypal script
       if (!window.paypal) {
         addPayPalScript();
       } else {
@@ -77,7 +79,7 @@ const OrderScreen = ({ match, history }) => {
   }, [dispatch, order, orderId, successPay, successDeliver, userInfo, history]);
 
   const successPaymentHandler = (paymentResult) => {
-    console.log(paymentResult);
+    console.log(paymentResult); // comes in with the paypal
     dispatch(payOrder(orderId, paymentResult));
   };
 

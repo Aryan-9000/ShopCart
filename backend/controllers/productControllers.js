@@ -5,21 +5,21 @@ import Product from "../models/productModel.js";
 // @route : GET /api/products
 // @access : Public
 const getProducts = asyncHandler(async (req, res) => {           // asyncHandler avoids using try/catch everytime with express async routes and handles the exception
-  const pageSize = 10;
-  const page = Number(req.query.pageNumber) || 1;
+  const pageSize = 10; // deciding the page size
+  const page = Number(req.query.pageNumber) || 1; //page number will be passed in the query
 
   const keyword = req.query.keyword
     ? {
         name: {
-          $regex: req.query.keyword,
-          $options: "i",
+          $regex: req.query.keyword,  // so that even if keyword is 'iph' -> it points to iphone
+          $options: "i",  // case insensitive option
         },
       }
     : {};
 
   const count = await Product.countDocuments({ ...keyword });
   const products = await Product.find({ ...keyword })
-    .limit(pageSize)
+    .limit(pageSize)  // only show 10 results
     .skip(pageSize * (page - 1));
   res.json({ products, page, pages: Math.ceil(count / pageSize) });
 });

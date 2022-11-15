@@ -27,11 +27,12 @@ const userSchema = mongoose.Schema(
   }
 );
 
-userSchema.methods.matchPassword = async function (enteredPassword) {
+userSchema.methods.matchPassword = async function (enteredPassword) {   // defining methods on a schema .. can be used with corresponding models created
   return await bcrypt.compare(enteredPassword, this.password);
 };
 
-userSchema.pre("save", async function (next) {
+// defining mongoose middleware , which will be invoked before saving a User model (when User.create is called)
+userSchema.pre("save", async function (next) { 
   if (!this.isModified("password")) {
     next();
   }

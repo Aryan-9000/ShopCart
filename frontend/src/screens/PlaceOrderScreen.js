@@ -13,7 +13,7 @@ const PlaceOrderScreen = ({ history }) => {
 
   const addDecimal = (num) => {
     return (Math.round(num * 100) / 100).toFixed(2);
-  };
+  }; // to make 28.5 -> 28.50
   cart.itemsPrice = addDecimal(
     cart.cartItems.reduce((acc, item) => acc + item.price * item.qty, 0)
   );
@@ -30,9 +30,10 @@ const PlaceOrderScreen = ({ history }) => {
 
   useEffect(() => {
     if (success) {
-      history.push(`/order/${order._id}`);
+      history.push(`/order/${order._id}`); // redirect if order placed
     }
     // eslint-disable-next-line
+    // above line will prevent warning (which wants 'order' as dependency)
   }, [success, history]);
 
   const placeOrderHandler = () => {

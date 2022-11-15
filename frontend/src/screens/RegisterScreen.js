@@ -23,7 +23,7 @@ const RegisterScreen = ({ location, history }) => {
   const redirect = location.search ? location.search.split("=")[1] : "/";
 
   useEffect(() => {
-    if (userInfo) {
+    if (userInfo) { // as soon as we register -> we get logged in too -> so if the user is registered/logged in, redirect ...
       history.push(redirect);
     }
   }, [history, redirect, userInfo]);

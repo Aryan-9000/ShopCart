@@ -14,7 +14,7 @@ import {
 import Message from "../components/Message";
 import { addToCart, removeFromCart } from "../actions/cartActions";
 
-const CartScreen = ({ match, location, history }) => {
+const CartScreen = ({ match, location, history }) => { // 'location' is used to get the 'qty' value from query string
   const productId = match.params.id;
   const qty = location.search ? Number(location.search.split("=")[1]) : 1;
 
@@ -32,7 +32,7 @@ const CartScreen = ({ match, location, history }) => {
     dispatch(removeFromCart(id));
   };
   const checkoutHandler = () => {
-    history.push("/login?redirect=shipping");
+    history.push("/login?redirect=shipping"); // redirects to login page if not logged in , else to shipping page
   };
 
   return (
@@ -61,7 +61,7 @@ const CartScreen = ({ match, location, history }) => {
                       value={item.qty}
                       onChange={(e) =>
                         dispatch(
-                          addToCart(item.product, Number(e.target.value))
+                          addToCart(item.product, Number(e.target.value)) // dispatch this action when quantity changed in cartScreen
                         )
                       }
                     >

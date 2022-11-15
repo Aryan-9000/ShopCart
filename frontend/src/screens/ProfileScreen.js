@@ -31,15 +31,15 @@ const ProfileScreen = ({ location, history }) => {
   const { loading: loadingOrders, orders, error: errorOrders } = orderListMy;
 
   useEffect(() => {
-    if (!userInfo) {
+    if (!userInfo) { // if not logged in
       history.push("/login");
     } else {
-      if (!user || !user.name || success) {
-        dispatch({ type: USER_UPDATE_PROFILE_RESET });
-        dispatch(getUserDetails("profile"));
+      if (!user || !user.name || success) { // get User Details when component is loaded for first time
+        dispatch({ type: USER_UPDATE_PROFILE_RESET }); // resets the userDetails state to empty object
+        dispatch(getUserDetails("profile")); // userDetails changed -> user(derived state changed) -> useEffect fired once again
         dispatch(listMyOrders());
       } else {
-        setName(user.name);
+        setName(user.name); // sets the name and email in form fields
         setEmail(user.email);
       }
     }
@@ -59,11 +59,11 @@ const ProfileScreen = ({ location, history }) => {
     <Row>
       <Col md={3}>
         <h2>User Profile</h2>
-        {message && <Message variant="danger">{message}</Message>}
+        {message && <Message variant="danger">{message}</Message>}  {/*   use of message field   */}
         {error && <Message variant="danger">{error}</Message>}
         {success && (
           <Message variant="success">Profile Updated Successfully</Message>
-        )}
+        )}  {/*   use of success field   */}
         {loading && <Loader />}
         <Form onSubmit={submitHandler}>
           <Form.Group controlId="name">

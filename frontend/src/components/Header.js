@@ -27,7 +27,9 @@ const Header = () => {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
 
           <Navbar.Collapse id="basic-navbar-nav">
-            <Route render={({ history }) => <SearchBox history={history} />} />
+            <Route render={({ history }) => <SearchBox history={history} />} /> 
+            {/* "history.push" works when the component is being rendered by React Router, bypassing the component as a Component prop to a 
+            Route. If this is the case, the React Router exposes three props to the component: location, match and history. */}
             <Nav className="ml-auto">
               <LinkContainer to="/cart">
                 <Nav.Link>

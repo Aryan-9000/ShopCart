@@ -43,7 +43,7 @@ const getOrderById = asyncHandler(async (req, res) => {
   const order = await Order.findById(req.params.id).populate(
     "user",
     "name email"
-  );
+  ); // attaches the user name and user email along with the order details
 
   if (order) {
     res.json(order);
@@ -62,6 +62,7 @@ const updateOrderToPaid = asyncHandler(async (req, res) => {
   if (order) {
     order.isPaid = true;
     order.paidAt = Date.now();
+    // below info comes from the Paypal
     order.paymentResult = {
       id: req.body.id,
       status: req.body.status,

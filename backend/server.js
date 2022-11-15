@@ -16,15 +16,15 @@ import { notFound, errorHandler } from "./middleware/errorMiddleware.js";
 dotenv.config();
 connectDB();     // connecting to the MongoDB URI
 
-const app = express();
+const app = express(); 
 
 app.use(cors());
 
 if (process.env.NODE_ENV === "development") {
   app.use(morgan("dev"));
-}
+} // using morgan middleware
 
-app.use(express.json());
+app.use(express.json()); // allows us to accept JSON data in the request bodys
 
 app.use("/api/products", productRoutes);
 app.use("/api/users", userRoutes);
@@ -33,10 +33,10 @@ app.use("/api/upload", uploadRoutes);
 
 app.get("/api/config/paypal", (req, res) =>
   res.send(process.env.PAYPAL_CLIENT_ID)
-);
+); // request to get the paypal client id
 
 const __dirname = path.resolve();
-app.use("/uploads", express.static(path.join(__dirname, "/uploads")));
+app.use("/uploads", express.static(path.join(__dirname, "/uploads"))); // __dirname points to the current directory
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "/frontend/build")));

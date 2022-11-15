@@ -33,7 +33,7 @@ export const login = (email, password) => async (dispatch) => {
     dispatch({
       type: USER_LOGIN_REQUEST,
     });
-
+    // how to pass headers with your request
     const config = {
       headers: {
         "Content-Type": "application/json",
@@ -75,7 +75,7 @@ export const logout = () => (dispatch) => {
     type: ORDER_LIST_MY_RESET,
   });
   dispatch({
-    type: USER_LIST_RESET,
+    type: USER_LIST_RESET, // without this.. 'user list' would be accessible even if the admin logs out
   });
   dispatch({
     type: PRODUCT_CREATE_REVIEW_RESET,

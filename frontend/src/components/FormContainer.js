@@ -1,6 +1,7 @@
 import React from "react";
 import { Container, Row, Col } from "react-bootstrap";
 
+// Components placed inside the FormContainer component will be passed as 'children' here
 const FormContainer = ({ children }) => {
   return (
     <Container>
