@@ -1,5 +1,8 @@
 import axios from "axios";
-const instance = axios.create({
-  baseURL: "https://shopcart-app.herokuapp.com/",
-});
+let instance = null;
+if(process.env.NODE_ENV === "production") {
+       instance = axios.create({
+              baseURL: "https://appshopcart.herokuapp.com/",
+       });
+}
 export default instance;

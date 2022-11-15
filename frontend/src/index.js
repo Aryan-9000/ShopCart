@@ -9,7 +9,9 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 
 import axios from "axios";
-axios.defaults.baseURL = "https://shopcart-app.herokuapp.com";
+if(process.env.NODE_ENV === "production") {
+       axios.defaults.baseURL = "https://appshopcart.herokuapp.com/";
+}
 
 ReactDOM.render(
   <Provider store={store}>
